@@ -1,1 +1,35 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  /* Forest — vert foncé profond (sidebar, secondary) */
+  --color-forest-50: #f0f5f4;
+  --color-forest-100: #d9e8e5;
+  --color-forest-200: #b3d1ca;
+  --color-forest-300: #7db5ab;
+  --color-forest-400: #4d9288;
+  --color-forest-500: #2e6b60;
+  --color-forest-600: #245950;
+  --color-forest-700: #1e4d45;
+  --color-forest-800: #1a3d37;
+  --color-forest-900: #1a3530;
+
+  /* Golden — doré/ambre (boutons, liens, états actifs) */
+  --color-golden-50: #fdf8e8;
+  --color-golden-100: #fbefc5;
+  --color-golden-200: #f5da80;
+  --color-golden-300: #efca44;
+  --color-golden-400: #e0b820;
+  --color-golden-500: #c9a227;
+  --color-golden-600: #b08920;
+  --color-golden-700: #8a6c18;
+  --color-golden-800: #6a5214;
+  --color-golden-900: #4f3d0f;
+
+  --color-gray-bg: #f0f2f0;
+  --color-card-bg: #ffffff;
+}
+
+body {
+  background-color: var(--color-gray-bg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
