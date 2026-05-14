@@ -14,8 +14,8 @@ const Logo = ({ size = 'md', variant = 'dark' }) => {
 
       <div className="flex flex-col leading-tight">
         <div className="flex items-baseline gap-0.5">
-          <span className={`${textSize} font-extrabold tracking-wide ${brandColor}`}>GOCS</span>
-          <span className={`${textSize} font-extrabold tracking-wide text-golden-500`}>PX</span>
+          <span className={`${textSize} font-extrabold tracking-wide ${brandColor}`}>FAMA</span>
+          <span className={`${textSize} font-extrabold tracking-wide text-golden-500`}>SKA</span>
         </div>
         <div className="flex items-center gap-1 mt-0.5">
           <div className="h-px flex-1 bg-golden-500/70" />
