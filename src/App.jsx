@@ -8,11 +8,16 @@ import Register from './pages/Register'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import VerifyEmail from './pages/VerifyEmail'
+import ChangePassword from './pages/ChangePassword'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 
 function App() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen">Chargement...</div>
+  }
 
   return (
     <Routes>
@@ -25,13 +30,17 @@ function App() {
       </Route>
 
       <Route element={<ProtectedRoute />}>
+        <Route path="/change-password" element={<ChangePassword />} />
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Route>
 
-      <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
+      <Route
+        path="/"
+        element={<Navigate to={user ? (user.mustChangePassword ? '/change-password' : '/dashboard') : '/login'} />}
+      />
     </Routes>
   )
 }

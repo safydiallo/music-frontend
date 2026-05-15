@@ -14,9 +14,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    const ok = await loginUser(email, password)
+    
+    const result = await loginUser(email, password)
     setLoading(false)
-    if (ok) navigate('/dashboard')
+    if (result) {
+        if (result.mustChangePassword) {
+            navigate('/change-password')
+        } else {
+            navigate('/dashboard')
+        }
+    }
   }
 
   return (

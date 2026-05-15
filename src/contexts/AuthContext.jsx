@@ -1,5 +1,10 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { login as apiLogin, logout as apiLogout, register as apiRegister } from '../services/authService'
+import {
+  login as apiLogin,
+  logout as apiLogout,
+  register as apiRegister,
+  changePassword as apiChangePassword,
+} from '../services/authService'
 import toast from 'react-hot-toast'
 
 const AuthContext = createContext()
@@ -45,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(userInfo))
       setUser(userInfo)
       toast.success('Connexion réussie')
-      return true
+      return userInfo
     } catch (err) {
       const message =
         err.response?.data?.message ?? err.response?.data ?? 'Email ou mot de passe invalide'
@@ -65,8 +70,29 @@ export const AuthProvider = ({ children }) => {
     setUser(null)
   }
 
+  const changePasswordUser = async (newPassword, confirmPassword) => {
+    try {
+      const res = await apiChangePassword(newPassword, confirmPassword)
+      setUser((prevUser) => {
+        if (!prevUser) return prevUser
+        const updatedUser = { ...prevUser, mustChangePassword: false }
+        localStorage.setItem('user', JSON.stringify(updatedUser))
+        return updatedUser
+      })
+      toast.success(res.data?.message ?? res.data ?? 'Mot de passe modifié avec succès')
+      return true
+    } catch (err) {
+      const message =
+        err.response?.data?.message ?? err.response?.data ?? 'Erreur lors du changement de mot de passe'
+      toast.error(message)
+      return false
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ user, loading, loginUser, logoutUser, registerUser }}>
+    <AuthContext.Provider
+      value={{ user, loading, loginUser, logoutUser, registerUser, changePasswordUser }}
+    >
       {children}
     </AuthContext.Provider>
   )
